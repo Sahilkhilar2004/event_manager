@@ -69,12 +69,22 @@ function App() {
     
   };
 
-  const handleSubmitBooking = () => {
-    toast.success(`Booking confirmed for ${bookingEvent.name}`);
+const handleSubmitBooking = () => {
+  if (!bookingEvent) return; // prevent crash if null
+
+  toast.success(`Booking confirmed for ${bookingEvent.name}`, {
+    autoClose: 2500,
+    pauseOnHover: true,
+    closeOnClick: true,
+  });
+
+  setTimeout(() => {
     setBookingEvent(null);
     setUserName("");
     setUserEmail("");
-  };
+  }, 100);
+};
+
 
   const handleEventCreate = (newEvent) => {
   const eventWithUser = { ...newEvent, createdBy: currentUserEmail };
@@ -137,13 +147,15 @@ function App() {
             onEdit={handleEditEvent}
              currentUserEmail={currentUserEmail}
           />
+             
         </div>
 
         <CTA />
         <Contact />
       </div>
-      <ToastContainer position="top-center" autoClose={2500} />
+   
       <Footer />
+      <ToastContainer position="top-center" autoClose={2500} />
 
       {bookingEvent && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
@@ -186,5 +198,6 @@ function App() {
     </div>
   );
 }
+// Trigger redeploy
 
 export default App;
