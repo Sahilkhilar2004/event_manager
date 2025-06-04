@@ -13,15 +13,14 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CreateEvent from "./components/CreateEvent";
 
-
 function App() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [bookingEvent, setBookingEvent] = useState(null);
   const [userName, setUserName] = useState("");
-  const [currentUserEmail, setCurrentUserEmail] = useState("sahil@gmail.com"); 
-
+  const [currentUserEmail, setCurrentUserEmail] = useState("sahil@gmail.com");
   const [userEmail, setUserEmail] = useState("");
   const [showCreateForm, setShowCreateForm] = useState(false);
+
   const [allEvents, setAllEvents] = useState([
     {
       name: "Tech Summit 2025",
@@ -54,7 +53,7 @@ function App() {
       category: "Workshops",
     },
   ]);
-  // ✅ events stored here
+
   const eventRef = useRef(null);
 
   const handleSelectCategory = (category) => {
@@ -66,33 +65,27 @@ function App() {
 
   const handleBookEvent = (event) => {
     setBookingEvent(event);
-    
   };
 
-const handleSubmitBooking = () => {
-  if (!bookingEvent) return; // prevent crash if null
+  const handleSubmitBooking = () => {
+    const eventName = bookingEvent?.name || "Event";
+    toast.success(`Booking confirmed for ${eventName}`, {
+      autoClose: 2500,
+      pauseOnHover: true,
+      closeOnClick: false,
+    });
 
-  toast.success(`Booking confirmed for ${bookingEvent.name}`, {
-    autoClose: 2500,
-    pauseOnHover: true,
-    closeOnClick: true,
-  });
-
-  setTimeout(() => {
     setBookingEvent(null);
     setUserName("");
     setUserEmail("");
-  }, 100);
-};
-
+  };
 
   const handleEventCreate = (newEvent) => {
-  const eventWithUser = { ...newEvent, createdBy: currentUserEmail };
-  setAllEvents((prev) => [...prev, eventWithUser]);
-  toast.success(`Event "${newEvent.name}" created!`);
-  setShowCreateForm(false);
-};
-
+    const eventWithUser = { ...newEvent, createdBy: currentUserEmail };
+    setAllEvents((prev) => [...prev, eventWithUser]);
+    toast.success(`Event "${newEvent.name}" created!`);
+    setShowCreateForm(false);
+  };
 
   const handleDeleteEvent = (index) => {
     setAllEvents((prev) => prev.filter((_, i) => i !== index));
@@ -108,7 +101,11 @@ const handleSubmitBooking = () => {
 
   return (
     <div className="font-sans relative">
+      
       <Navbar />
+
+      <ToastContainer position="top-center" autoClose={2500} />
+
       <div className="pt-20">
         <Hero />
         <About />
@@ -137,7 +134,6 @@ const handleSubmitBooking = () => {
           </div>
         )}
 
-        {/* ✅ Pass events as prop */}
         <div ref={eventRef}>
           <UpcomingEvents
             selectedCategory={selectedCategory}
@@ -145,17 +141,15 @@ const handleSubmitBooking = () => {
             events={allEvents}
             onDelete={handleDeleteEvent}
             onEdit={handleEditEvent}
-             currentUserEmail={currentUserEmail}
+            currentUserEmail={currentUserEmail}
           />
-             
         </div>
 
         <CTA />
         <Contact />
       </div>
-   
+
       <Footer />
-      <ToastContainer position="top-center" autoClose={2500} />
 
       {bookingEvent && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
@@ -198,6 +192,5 @@ const handleSubmitBooking = () => {
     </div>
   );
 }
-// Trigger redeploy
 
 export default App;
