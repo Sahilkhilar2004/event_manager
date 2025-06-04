@@ -137,13 +137,12 @@ function App() {
             onEdit={handleEditEvent}
              currentUserEmail={currentUserEmail}
           />
-             <ToastContainer position="top-center" autoClose={2500} />
         </div>
 
         <CTA />
         <Contact />
       </div>
-   
+      <ToastContainer position="top-center" autoClose={2500} />
       <Footer />
 
       {bookingEvent && (
@@ -187,6 +186,5 @@ function App() {
     </div>
   );
 }
-// Trigger redeploy
 
 export default App;
