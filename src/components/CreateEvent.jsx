@@ -58,11 +58,11 @@ export default function CreateEvent({ onCreate }) {
             className="w-full px-4 py-2 rounded bg-white/20 text-white border border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-400"
             required
           >
-            <option value="">Select Category</option>
-            <option value="Concerts">Concerts</option>
-            <option value="Conferences">Conferences</option>
-            <option value="Weddings">Weddings</option>
-            <option value="Workshops">Workshops</option>
+            <option className="bg-purple-900" value="">Select Category</option>
+            <option className="bg-purple-900" value="Concerts">Concerts</option>
+            <option className="bg-purple-900" value="Conferences">Conferences</option>
+            <option className="bg-purple-900" value="Weddings">Weddings</option>
+            <option className="bg-purple-900" value="Workshops">Workshops</option>
           </select>
           <button
             type="submit"
